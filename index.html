@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <style>
+        th {
+            color: #fff;
+        }
+    </style>
+    <h1 style="align-items: centre;">Welcome to Game Search</h1>
+<!-- 
+    <h2> Game name : <span id="title" style="color: red;"></span></h2>
+    <h3> Supported Placteform : <span id="plateform" style="color: red;"></span></h3>
+    <h3> Score : <span id="score" style="color: red;"></span></h3>
+    <h3> Genere : <span id="genere" style="color: red;"></span></h3>
+    <h3> Editor's Choice : <span id="editorschoice" style="color: red;"></span></h3> -->
+
+    <table class="table table-striped">
+        <tr class="bg-info">
+            <th>Game</th>
+            <th>Platform</th>
+            <th>Score</th>
+            <th>Genre</th>
+            <th>Editor's Choice</th>
+        </tr>
+
+        <tbody id="myTable">
+
+        </tbody>
+    </table>
+
+
+    <script>
+        
+        function buildTable(data) {
+            var table = document.getElementById('myTable')
+
+            for (var i = 1; i < data.length; i++) {
+                var row = `<tr>
+							<td>${data[i].title}</td>
+							<td>${data[i].platform}</td>
+							<td>${data[i].score}</td>
+							<td>${data[i].genre}</td>
+							<td>${data[i].editors_choice}</td>
+					  </tr>`
+                    //   to change structure of html
+                table.innerHTML += row
+
+
+            }
+        }
+
+        const api_url = 'https://s3-ap-southeast-1.amazonaws.com/he-public-data/gamesarena274f2bf.json'
+        async function getData() {
+            const response = await fetch(api_url);
+            const data = await response.json();
+            // const { title, platform } = data[1];
+            // document.getElementById('title').textContent = title;
+            // document.getElementById('plateform').textContent = platform;
+            // document.getElementById('score').textContent = data[1].score;
+            // document.getElementById('genere').textContent = data[1].genre;
+            // document.getElementById('editorschoice').textContent = data[1].editors_choice;
+
+            console.log(data[1].title);
+            buildTable(data);
+        }
+
+        getData();
+    </script>
+</body>
+
+</html>
